@@ -1,0 +1,172 @@
+$sunny-1: #ffe95c
+$sunny-2: #403d39
+$sunny-3: #252422
+$sunny-4: #eb5e28
+$sunny-5: #38a700
+$cold-1: #e253f1
+$cold-2: #c5cbfc
+$cold-3: #02111b
+$cold-4: #006e90
+$cold-5: #177e89
+$overcast-1: #d6d6d6
+$overcast-2: #b3b3b3
+$overcast-3: #8a8a8a
+$overcast-4: #616161
+$overcast-5: #383838
+$rainy-1: #2d9ad2
+$rainy-2: #248dad
+$rainy-3: #1c6285
+$rainy-4: #13445c
+$rainy-5: #36bcff
+$snowy-1: #FFFFFF
+$snowy-2: #686868
+$snowy-3: #b3b3b3
+$snowy-4: #8a8a8a
+$snowy-5: #616161
+$base-1: #6ffabb
+$base-2: #7fc7a7
+$base-3: #7c9489
+$base-4: #4a6156
+$base-5: #1d3329
+
+@font-face 
+    font-family: 'Constantia Normal'
+    src: url(../fonts/Constantia.ttf)
+    font-weight: 400
+    font-style: normal
+
+@font-face
+    font-family: 'Mukta Bold'
+    src: url(../fonts/Mukta-Bold.ttf)
+    font-weight: 700
+
+@font-face
+    font-family: 'Mukta Extra Bold'
+    src: url(../fonts/Mukta-ExtraBold.ttf)
+    font-weight: 800
+
+@font-face
+    font-family: 'Mukta Medium'
+    src: url(../fonts/Mukta-Medium.ttf)
+    font-weight: 500
+
+@font-face
+    font-family: 'Mukta Regular'
+    src: url(../fonts/Mukta-Regular.ttf)
+    font-weight: 400
+    
+*,
+*::before,
+*::after
+    box-sizing: border-box
+
+*
+    margin: 0
+    padding: 0
+    scroll-behavior: smooth
+
+html
+    font-size: 62.5%
+
+img
+    width: 100%
+    object-fit: cover
+
+body
+    font-size: 1.6rem
+    display: flex
+    height: 100vh
+    align-items: center
+    justify-content: center
+    font-family: 'Mukta Regular'
+
+.content
+    display: grid
+    width: 100%
+    max-width: 37.5rem
+    grid-template-areas: "navbar" "content"
+
+nav
+    grid-area: navbar
+    background-color: $base-5
+    display: flex
+    align-items: center
+    justify-content: space-between
+    height: 5rem
+    padding-inline: 1.6rem 1.4rem
+    h1
+        font-size: 1.2rem
+        color: $base-1
+        font-family: 'Constantia Normal'
+    .hamburger
+        width: 100%
+        max-width: 2.5rem
+        height: 2.3rem
+        display: flex
+        flex-direction: column
+        gap: .4rem
+        cursor: pointer
+        .line
+            width: 100%
+            max-width: 2.3rem
+            height: .4rem
+            border: none
+            border-radius: 6px
+            background: $base-1
+            pointer-events: none
+            transition: background 0.3s ease-in-out
+            
+.hamburger:hover .line
+    background: #FFFFFF
+
+
+main
+    grid-area: content
+    background: linear-gradient(161deg, darken(#FFF, 1%) -0.23%, rgba(191, 241, 218, 0.20) 56.61%)
+    background-blend-mode: darken
+    display: grid
+    grid-template-areas: "zip" "temperatureInfo" "forecast"
+    justify-items: center
+    #zipCode
+        margin-top: 3.8rem
+        width: 100%
+        max-width: 21.7rem
+        height: 3rem
+        border-radius: 8px
+        background: #FFF
+        border: none
+    .temperatureInfo
+        font-size: 1.2rem
+        margin-top: 5.1rem
+        display: flex
+        width: 100%
+        max-width: 27.9rem
+        align-items: center
+        justify-content: center
+        height: 14rem
+        border-radius: 8px
+        background: #FFF
+    .forecast
+        font-size: 1.2rem
+        margin-top: 5.3rem
+        display: flex
+        width: 100%
+        max-width: 27.9rem
+        height: 25rem
+        border-radius: 8px
+        background: #fff
+        justify-content: center
+        align-items: center
+        margin-bottom: 6rem
+
+#zipCode::placeholder
+    text-align: center
+    font-family: 'Mukta Regular'
+    
+#zipCode,
+.temperatureInfo,
+.forecast
+    box-shadow: 2px 2px 5px lighten($base-5, 70%)
+
+
+
