@@ -183,6 +183,7 @@ main
     .zipContainer
         display: flex
         flex-direction: column
+        width: 100%
         align-items: center
         gap: 2rem
         button
@@ -197,6 +198,7 @@ main
             &:hover
                 background: $base-4
     #zipCode
+        display: flex
         margin-top: 3.8rem
         width: 100%
         max-width: 21.7rem
@@ -205,38 +207,87 @@ main
         background: #FFF
         text-align: center
         border: none
-    .temperatureInfo
-        font-size: 1.2rem
-        margin-top: 5.1rem
-        display: flex
+    .mainContent
+        position: relative
         width: 100%
-        max-width: 27.9rem
-        align-items: center
-        justify-content: center
-        height: 14rem
-        border-radius: 8px
-        background: #FFF
-    .forecast
-        font-size: 1.2rem
-        margin-top: 5.3rem
-        display: flex
-        width: 100%
-        max-width: 27.9rem
-        height: 25rem
-        border-radius: 8px
-        background: #fff
-        justify-content: center
-        align-items: center
-        margin-bottom: 6rem
+        .areaChoice
+            display: flex
+            flex-direction: column
+            width: 100%
+            gap: 5rem
+            align-items: center
+            position: absolute
+            top: 15rem
+            left: 50%
+            opacity: 0
+            transform: translateX(-50%)
+            transition: opacity 0.2s ease-in-out
+            &[data-choice='']
+                z-index: 2
+                opacity: 1
+            .area
+                border: none
+                border-radius: 8px
+                background: white
+                cursor: pointer
+                width: 100%
+                max-width: 75%
+                text-align: center
+                box-shadow: 2px 2px 5px lighten($base-5, 70%)
+                transition: all 0.2s ease-in-out
+                padding: .5rem 2rem
+                &:first-child
+                    margin-top: 5rem
+                &:hover
+                    background: $base-4
+                    color: white
+        .temperatureInfo
+            font-size: 1.2rem
+            margin-top: 5.1rem
+            display: flex
+            width: 100%
+            max-width: 27.9rem
+            align-items: center
+            justify-content: center
+            height: 14rem
+            border-radius: 8px
+            background: #FFF
+            transition: opacity 0.2s ease-in-out
+            &[data-weather = '']
+                z-index: 2
+                opacity: 1
+        .forecast
+            font-size: 1.2rem
+            margin-top: 5.3rem
+            display: flex
+            width: 100%
+            max-width: 27.9rem
+            height: 25rem
+            border-radius: 8px
+            background: #fff
+            justify-content: center
+            align-items: center
+            margin-bottom: 6rem
+            transition: opacity 0.2s ease-in-out
+            &[data-weather = '']
+                z-index: 2
+                opacity: 1
 
 #zipCode::placeholder
     text-align: center
     font-family: 'Mukta Regular'
+
+.temperatureInfo,
+.forecast 
+    z-index: 1
+    opacity: 0
     
 #zipCode,
 .temperatureInfo,
 .forecast
     box-shadow: 2px 2px 5px lighten($base-5, 70%)
+
+
 
 @media screen and (min-width: 600px)
     .mainContent
@@ -245,16 +296,21 @@ main
        align-items: center
        width: 100%
        max-width: 71rem 
-       #zipCode
-        margin-top: 8.2rem
-        max-width: 60rem
-        height: 4rem
+       .zipContainer
+        width: 98%
+        #zipCode
+         margin-top: 8.2rem
+         max-width: 60rem
+         height: 4rem
+       .areaChoice
+        margin-top: 5rem
+        
        .temperatureInfo,
        .forecast
-        width: 95%
-        max-width: 71rem
-        height: 28.9rem
-       
+        width: 95% !important
+        max-width: 71rem !important
+        height: 28.9rem !important
+        
 
 footer
     grid-area: footer
