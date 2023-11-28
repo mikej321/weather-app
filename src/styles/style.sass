@@ -82,40 +82,95 @@ body
     display: grid
     width: 100%
     max-width: 37.5rem
-    grid-template-areas: "navbar" "content"
+    grid-template-rows: 5rem 1fr 5rem
+    grid-template-areas: "navbar" "content" "footer"
+
+@media screen and (min-width: 600px)
+    .content
+        max-width: unset
+        height: 100vh
+        
 
 nav
     grid-area: navbar
     background-color: $base-5
-    display: flex
-    align-items: center
-    justify-content: space-between
     height: 5rem
+    display: flex
     padding-inline: 1.6rem 1.4rem
-    h1
-        font-size: 1.2rem
-        color: $base-1
-        font-family: 'Constantia Normal'
-    .hamburger
-        width: 100%
-        max-width: 2.5rem
-        height: 2.3rem
+    position: relative
+    .navbar
+        height: 100%
         display: flex
-        flex-direction: column
-        gap: .4rem
-        cursor: pointer
-        .line
+        align-items: center
+        justify-content: space-between
+        width: 100%
+        h1
+            font-size: 1.2rem
+            color: $base-1
+            font-family: 'Constantia Normal'
+        .hamburger
             width: 100%
-            max-width: 2.3rem
-            height: .4rem
-            border: none
-            border-radius: 6px
-            background: $base-1
-            pointer-events: none
-            transition: background 0.3s ease-in-out
+            max-width: 2.5rem
+            display: flex
+            height: 100%
+            max-height: 2.3rem
+            flex-direction: column
+            gap: .4rem
+            cursor: pointer
+            .line
+                width: 100%
+                max-width: 2.3rem
+                height: .4rem
+                border: none
+                border-radius: 6px
+                background: $base-1
+                pointer-events: none
+                transition: background 0.3s ease-in-out
+        .links
+            position: absolute
+            right: 0
+            top: 5rem
+            text-align: center
+            list-style: none       
+            max-height: 0
+            overflow: hidden
+            li
+                background: $base-5
+                padding: 2rem
+                opacity: .7
+                transition: all 0.2s ease-in-out
+                cursor: pointer
+                &:hover
+                    background: $base-2
+                &:hover a
+                    color: $base-5
+            li a
+                text-decoration: none
+                color: $base-1
             
 .hamburger:hover .line
     background: #FFFFFF
+
+@media screen and (min-width: 600px)
+    nav
+        justify-content: center
+        .navbar
+            width: 100%
+            max-width: 99.4rem
+            h1
+                font-size: 2rem
+            .hamburger
+                display: none
+            .links
+                position: static
+                display: flex
+                height: 100%
+                max-height: 100%
+                align-items: center
+                li
+                    opacity: 1 
+                    padding: 2rem 4rem
+    
 
 
 main
@@ -125,6 +180,22 @@ main
     display: grid
     grid-template-areas: "zip" "temperatureInfo" "forecast"
     justify-items: center
+    .zipContainer
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: 2rem
+        button
+            padding: .5rem 2rem
+            border: none
+            border-radius: 4px
+            font-family: inherit
+            background: $base-2
+            color: white
+            cursor: pointer
+            transition: background 0.2s ease-in-out
+            &:hover
+                background: $base-4
     #zipCode
         margin-top: 3.8rem
         width: 100%
@@ -132,6 +203,7 @@ main
         height: 3rem
         border-radius: 8px
         background: #FFF
+        text-align: center
         border: none
     .temperatureInfo
         font-size: 1.2rem
@@ -166,5 +238,41 @@ main
 .forecast
     box-shadow: 2px 2px 5px lighten($base-5, 70%)
 
+@media screen and (min-width: 600px)
+    .mainContent
+       display: flex
+       flex-direction: column
+       align-items: center
+       width: 100%
+       max-width: 71rem 
+       #zipCode
+        margin-top: 8.2rem
+        max-width: 60rem
+        height: 4rem
+       .temperatureInfo,
+       .forecast
+        width: 95%
+        max-width: 71rem
+        height: 28.9rem
+       
 
+footer
+    grid-area: footer
+    display: flex
+    background: $base-5
+    align-items: center
+    justify-content: center
+    color: $base-1
+    font-size: 1.2rem
+    letter-spacing: .05rem
+    a
+        text-decoration: none
+        color: white
+        transition: color 0.2s ease-in-out
+        &:hover
+            color: lighten(blue, 30%)
 
+@media screen and (min-width: 600px)
+    footer
+        font-size: 1.4rem
+        letter-spacing: .2rem
