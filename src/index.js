@@ -1,6 +1,8 @@
 import './styles/style.sass';
+import { pickArea } from './myModules/search';
 
 const content = document.querySelector('.content');
+
 
 window.onload = loadInitialContent()
 
@@ -71,7 +73,7 @@ function createMainContent() {
     zipCode.setAttribute('type', 'text');
     zipCode.name = 'zipCode';
     zipCode.id = 'zipCode';
-    zipCode.placeholder = 'Insert Zip Here';
+    zipCode.placeholder = 'Insert Zip or County Name Here';
     zipContainer.append(zipCode);
 
     const searchButton = document.createElement('button');
@@ -112,3 +114,11 @@ function loadInitialContent() {
     createMainContent();
     createFooter();
 }
+
+function querySelectors() {
+    const searchButton = document.querySelector('.zipContainer > button');
+    searchButton.addEventListener('click', pickArea);
+}
+
+querySelectors();
+export { content };
