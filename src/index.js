@@ -1,5 +1,6 @@
 import './styles/style.sass';
-import { pickArea } from './myModules/search';
+import { printWeather } from './myModules/display';
+
 
 const content = document.querySelector('.content');
 
@@ -17,7 +18,7 @@ function createNav() {
     navBar.classList.add('navbar')
 
     const title = document.createElement('h1');
-    title.textContent = 'Temperate WeatherApp';
+    title.textContent = 'emperate WeatherApp';
     navBar.append(title);
 
     const hamburger = document.createElement('div');
@@ -117,7 +118,7 @@ function loadInitialContent() {
 
 function querySelectors() {
     const searchButton = document.querySelector('.zipContainer > button');
-    searchButton.addEventListener('click', pickArea);
+    searchButton.addEventListener('click', printWeather);
 }
 
 querySelectors();

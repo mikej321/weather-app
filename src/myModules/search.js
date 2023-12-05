@@ -59,6 +59,37 @@ function eraseAreaContents() {
     }
 }
 
+function eraseTempInfo() {
+    const tempInfo = document.querySelector('.temperatureInfo');
+    while (tempInfo.firstChild) {
+        tempInfo.removeChild(tempInfo.firstChild);
+    }
+}
+
+async function fadeOut(ele) {
+    let opacity = 1;
+    let intervalID = setInterval(() => {
+        if (opacity > 0) {
+            opacity = opacity - 0.1;
+            ele.style.opacity = opacity;
+        }  else {
+            clearInterval(intervalID);
+        }
+    })
+}
+
+async function fadeIn(ele) {
+    let opacity = -0.1;
+    let intervalID = setInterval(() => {
+        if (opacity < 1) {
+            opacity = opacity + 0.1;
+            ele.style.opacity = opacity;
+        } else {
+            clearInterval(intervalID);
+        }
+    })
+}
+
 async function pickArea() {
     const areaChoice = document.querySelector('.areaChoice');
     let areaArr = await fetchArea();
@@ -91,4 +122,31 @@ async function pickArea() {
     return newArr;
 }
 
-export { pickArea }
+async function pickedChoice() {
+    const listOfTowns = await pickArea();
+    function waitForChoice() {
+        return new Promise((resolve, reject) => {
+            listOfTowns[1].forEach((town) => {
+                town.addEventListener('click', (event) => {
+                    let tarEl = event.target;
+                    let choiceTown = listOfTowns[0][tarEl.dataset.choice];
+                    resolve(choiceTown);
+                })
+            })
+        })
+    }
+    let resolvedChoice = await waitForChoice();
+    return resolvedChoice;
+}
+
+async function fetchWeather() {
+    let userChoice = await pickedChoice();
+    let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
+        mode: 'cors',
+    });
+    let myWeather = await myResponse.json();
+    console.log(myWeather)
+    return [userChoice, myWeather];
+}
+
+export { fetchWeather, eraseAreaContents, eraseTempInfo, fadeOut, fadeIn };

@@ -211,6 +211,9 @@ main
     .mainContent
         position: relative
         width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
         .areaChoice
             display: flex
             flex-direction: column
@@ -236,6 +239,8 @@ main
                 box-shadow: 2px 2px 5px lighten($base-5, 70%)
                 transition: all 0.2s ease-in-out
                 padding: .5rem 2rem
+                p
+                    pointer-events: none
                 &:first-child
                     margin-top: 5rem
                 &:hover
@@ -260,6 +265,12 @@ main
                 max-height: 14rem
                 z-index: 2
                 opacity: 1
+                .areaElement
+                    display: flex
+                    flex-direction: column
+                    align-items: center
+                    p:last-child
+                        font-size: 2rem
         .forecast
             position: relative
             font-size: 1.2rem
@@ -294,6 +305,9 @@ main
 .temperatureInfo,
 .forecast
     box-shadow: 2px 2px 5px lighten($base-5, 70%)
+
+.stateSpan
+    pointer-events: none
 
 
 
