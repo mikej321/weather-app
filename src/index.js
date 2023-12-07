@@ -1,5 +1,6 @@
 import './styles/style.sass';
-import { printWeather } from './myModules/display';
+import { displayForecast } from './myModules/forecast';
+import { addDays, startOfDay, format } from 'date-fns';
 
 
 const content = document.querySelector('.content');
@@ -18,7 +19,7 @@ function createNav() {
     navBar.classList.add('navbar')
 
     const title = document.createElement('h1');
-    title.textContent = 'emperate WeatherApp';
+    title.textContent = 'Temperate WeatherApp';
     navBar.append(title);
 
     const hamburger = document.createElement('div');
@@ -118,8 +119,9 @@ function loadInitialContent() {
 
 function querySelectors() {
     const searchButton = document.querySelector('.zipContainer > button');
-    searchButton.addEventListener('click', printWeather);
+    searchButton.addEventListener('click', displayForecast);
 }
+
 
 querySelectors();
 export { content };

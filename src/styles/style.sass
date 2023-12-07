@@ -250,31 +250,49 @@ main
             position: relative
             font-size: 1.2rem
             display: flex
+            flex-direction: column
             width: 100%
             max-width: 27.9rem
             align-items: center
-            justify-content: center
+            padding-top: 3rem
             height: 100%
             max-height: 0
             overflow: hidden
             border-radius: 8px
             background: #FFF
             transition: opacity 0.2s ease-in-out
+            img
+                width: 13rem
             &[data-weather = '']
-                margin-top: 5.3rem
-                max-height: 14rem
+                margin-top: 5rem
+                max-height: unset
+                text-align: center
+                padding-inline: 2rem
                 z-index: 2
                 opacity: 1
+                padding-bottom: 3rem
                 .areaElement
                     display: flex
                     flex-direction: column
                     align-items: center
+                    p:first-child
+                        margin-top: 2rem
+                        font-size: 1.6rem
+                    p:nth-child(2)
+                        margin-top: 1rem
+                        font-size: 2rem
+                    p:nth-child(3)
+                        margin-top: 1rem
+                        font-size: 2.5rem
                     p:last-child
+                        margin-top: 1.5rem
                         font-size: 2rem
         .forecast
             position: relative
             font-size: 1.2rem
             display: flex
+            flex-direction: column
+            gap: 2rem
             width: 100%
             max-width: 27.9rem
             height: 100%
@@ -288,9 +306,18 @@ main
             transition: opacity 0.2s ease-in-out
             &[data-weather = '']
                 margin-top: 5.3rem
-                max-height: 14rem
+                max-height: unset
                 z-index: 2
                 opacity: 1
+                padding: 2rem
+                overflow: unset
+            .forecastPane
+                display: flex
+                flex-direction: column
+                border: 1px solid black
+                width: 95%
+                .secondWeatherImg
+                    width: 5rem
 
 #zipCode::placeholder
     text-align: center
@@ -312,7 +339,7 @@ main
 
 
 @media screen and (min-width: 600px)
-    .mainContent
+    main .mainContent
        display: flex
        flex-direction: column
        align-items: center
@@ -329,9 +356,16 @@ main
         
        .temperatureInfo,
        .forecast
-        width: 95% !important
-        max-width: 71rem !important
+        width: 95% 
+        max-width: 71rem 
         
+       .temperatureInfo
+        display: grid
+        grid-template-columns: repeat(2, 1fr) 
+        justify-items: center
+        align-items: center
+        img
+           width: 25rem  
         
 
 footer

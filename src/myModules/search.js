@@ -5,7 +5,11 @@ async function fetchArea() {
     // selectors for search functions
     const searchBar = document.querySelector('#zipCode');
     const searchButton = document.querySelector('.zipContainer > button');
-
+    const tempInfo = document.querySelector('.temperatureInfo');
+    
+    if (tempInfo.hasAttribute('data-weather')) {
+        eraseTempInfo();
+    }
     // fetch properties for the area selection
     let areaArr = [];
     let input = searchBar.value;
@@ -64,6 +68,7 @@ function eraseTempInfo() {
     while (tempInfo.firstChild) {
         tempInfo.removeChild(tempInfo.firstChild);
     }
+    tempInfo.removeAttribute('data-weather');
 }
 
 async function fadeOut(ele) {
@@ -141,11 +146,10 @@ async function pickedChoice() {
 
 async function fetchWeather() {
     let userChoice = await pickedChoice();
-    let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
+    let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
         mode: 'cors',
     });
     let myWeather = await myResponse.json();
-    console.log(myWeather)
     return [userChoice, myWeather];
 }
 

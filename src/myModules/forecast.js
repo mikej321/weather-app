@@ -1,5 +1,6 @@
-// image imports
-
+import { printWeather } from "./display";
+import { closestTo, parseISO, closestIndexTo, eachHourOfInterval, addHours, addDays, format, subHours } from "date-fns";
+import { formatInTimeZone, utcToZonedTime } from "date-fns-tz";
 import Cloudy from '../assets/Cloud_Group.svg';
 import Drizzle from '../assets/Drizzle.svg';
 import HeavyRain from '../assets/Heavy_Rain.svg';
@@ -13,54 +14,68 @@ import ModerateSnow from '../assets/Moderate_Snow.svg';
 import StormCloud from '../assets/Storm_Cloud.svg';
 import SunRay from '../assets/Sun_With_Ray.svg';
 import Sun from '../assets/Sun.svg';
-import Title from '../assets/Title.svg';
 
-// function imports
-
-import { fetchWeather, eraseAreaContents, eraseTempInfo, fadeOut, fadeIn } from './search';
-import { format, isMonday, isTuesday, isWednesday, isThursday, isFriday, isSaturday, isSunday } from 'date-fns';
-
-async function printWeather() {
-    const areaChoice = document.querySelector('.areaChoice');
-    const temperatureInfo = document.querySelector('.temperatureInfo');
+async function displayForecast() {
+    const forcastInfo = document.querySelector('.forecast');
+    let myWeather = await printWeather();
     const forecast = document.querySelector('.forecast');
-    let myWeather = await fetchWeather();
-    eraseTempInfo();
-    eraseAreaContents();
+    forecast.setAttribute('data-weather', '');
+    // get the time from the time array and convert it into real time
+    // combine the time with the matching temperature and weather code
+    const today = new Date(myWeather['myWeather'][1]['current']['time']);
     
-    temperatureInfo.dataset.weather = '';
-    const areaEle = document.createElement('div');
-    areaEle.classList.add('areaElement');
-    temperatureInfo.append(areaEle);
-    
-    const weatherImg = new Image();
-    weatherImg.classList.add('weatherImg');
-    temperatureInfo.insertAdjacentElement('afterbegin', weatherImg);
-    
-    let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    let monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    
-    const today = new Date(myWeather[1]['current']['time']);
-    let todayDateDisplay = format(today, 'MMMM do yyyy');
-    
-    const dateDisplay = document.createElement('p');
-    dateDisplay.textContent = `${todayDateDisplay}`;
-    areaEle.append(dateDisplay);
+    // const formattedDate = utcToZonedTime(today, 'America/New_York', 'yyyy-MM-dd HH:mm:ss');
+    const todayWeatherArr = myWeather['myWeather'][1]['hourly'];
+    console.log(todayWeatherArr)
+    let hourlyArr = myWeather['myWeather'][1]['hourly']['time'];
+    let finishedHourlyArr = [];
+    for (let hour of hourlyArr) {
+        finishedHourlyArr.push(parseISO(hour));
+    }
 
-    const townName = document.createElement('p');
-    townName.textContent = `${myWeather[0].townName}, ${myWeather[0].stateName}`;
-    areaEle.append(townName);
+    let closestDate = closestTo(today, finishedHourlyArr);
+    let advancedDate;
+    let closestIndexDate;
+    /* add an hour to each advanced date, grab the index from it
+    and display the temperature from it
+    */
+   
+    console.log(today) 
+    const paneTitle = document.createElement('h2');
+    paneTitle.textContent = `8 hour forecast`;
+    paneTitle.classList.add('paneTitle');
+    forecast.append(paneTitle);
 
-    let fahrenheitSymbol = '&#8457';
-    const temperature = document.createElement('p');
-    temperature.innerHTML = `${myWeather[1].current['temperature_2m']} ${fahrenheitSymbol}`;
-    areaEle.append(temperature);
-    
-    const conditions = document.createElement('p');
-    let userCode;
+    for (let i = 0; i < 8; i++) {
+        advancedDate = addHours(closestDate, i + 1);
+        
+        closestIndexDate = closestIndexTo(advancedDate, finishedHourlyArr);
+        
+        const forecastPane = document.createElement('div');
+        forecastPane.classList.add('forecastPane');
+        forecast.append(forecastPane);
 
-    async function applyWeatherCode() {
-        switch(myWeather[1].current['weather_code']) {
+
+        const hoursDisplay = document.createElement('p');
+        forecastPane.append(hoursDisplay);
+        
+        let whatHour = subHours(advancedDate, 5);
+        whatHour = format(whatHour, 'h bbbb');
+        hoursDisplay.textContent = `${whatHour}`;
+
+        let fahrenheitSymbol = '&#8457';
+
+        const tempForecastDisplay = document.createElement('p');
+        tempForecastDisplay.classList.add('tempForecastDisplay');
+        forecastPane.append(tempForecastDisplay);
+        tempForecastDisplay.innerHTML = `${todayWeatherArr['temperature_2m'][closestIndexDate]} ${fahrenheitSymbol}`;
+
+        const conditions = document.createElement('p');
+        const weatherImg = new Image();
+        weatherImg.classList.add('secondWeatherImg');
+        let userCode;
+
+        switch(todayWeatherArr['weather_code'][closestIndexDate]) {
             case 0:
                 userCode = 'clear skies';
                 weatherImg.src = SunRay;
@@ -189,15 +204,16 @@ async function printWeather() {
             default:
                 break;    
         }
-        return userCode;
+        conditions.textContent = `${userCode}`;
+        forecastPane.append(conditions);
+        forecastPane.append(weatherImg);
     }
+    
 
-    userCode = await applyWeatherCode();
-    conditions.textContent = `${userCode}`;
-    areaEle.append(conditions);
-
-    return {myWeather, applyWeatherCode};
-
+    
+    
+    
+   
 }
 
-export { printWeather };
+export { displayForecast };
