@@ -209,7 +209,9 @@ async function displayForecast() {
         forecastPane.append(weatherImg);
     }
     
-
+    /* finish styling the forecast pane tomorrow and create a picture to suit the nighttime,
+    probably a moon with some stars or something. Use that with the is_day portion of the array
+    to tell if it's day or night and display the appropriate picture. */
     
     
     
