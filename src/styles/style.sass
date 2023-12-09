@@ -312,12 +312,30 @@ main
                 padding: 2rem
                 overflow: unset
             .forecastPane
-                display: flex
-                flex-direction: column
-                border: 1px solid black
+                display: grid
+                grid-template-columns: repeat(2, 1fr)
+                grid-template-areas: "time time" "image conditions"
+                
                 width: 95%
+                padding: 1rem 2rem
+                border-radius: 8px
+                .hoursDisplay
+                    font-size: 1.6rem
+                    grid-area: time
+                    justify-self: center
+                .conditionContainer
+                    grid-area: conditions
+                    justify-self: center
+                    text-align: center
+                    p:first-child
+                        font-size: 2rem
+                    p:last-child
+                        font-size: 1.6rem
                 .secondWeatherImg
-                    width: 5rem
+                    grid-area: image
+                    width: 7rem
+                    justify-self: center
+                    align-self: center
 
 #zipCode::placeholder
     text-align: center
@@ -330,12 +348,88 @@ main
     
 #zipCode,
 .temperatureInfo,
-.forecast
+.forecast,
+.forecastPane
     box-shadow: 2px 2px 5px lighten($base-5, 70%)
 
 .stateSpan
     pointer-events: none
 
+.temperatureInfo[sunny = '']
+    background: linear-gradient(161deg, darken(#FFF, 1%) -0.23%, $sunny-1 56.61%)
+
+.temperatureInfo[overcast = '']
+    background: linear-gradient(161deg, $overcast-1 -0.23%, $overcast-2 60%) !important
+    color: black
+
+.temperatureInfo[clearD = '']
+    background: linear-gradient(161deg, rgba(233, 217, 200, 0.795) -0.23%, rgba(250, 211, 82, 0.753) 60%) !important
+
+.temperatureInfo[clearN = '']
+    background: linear-gradient(161deg, rgb(43, 49, 71) -0.23%, rgb(74, 80, 100) 60%) !important
+    color: $snowy-1
+
+.temperatureInfo[cloudyD = '']
+    background: linear-gradient(161deg, rgba(199, 197, 195, 0.637) -0.23%, rgba(231, 192, 61, 0.801) 60%) !important
+
+.temperatureInfo[cloudyN = '']
+    background: linear-gradient(161deg, rgb(55, 57, 61) -0.23%, rgba(51, 57, 70, 0.74) 60%) !important
+    color: $snowy-1
+
+.temperatureInfo[drizzleD = '']
+    background: linear-gradient(161deg, rgba(255, 255, 255, 0.658) -0.23%, rgba(182, 186, 196, 0.288) 60%) !important
+
+.temperatureInfo[drizzleN = '']
+    background: linear-gradient(210deg, rgba(0, 0, 0, 0.26) -0.23%, rgba(0, 0, 0, 0.185) 60%) !important
+    color: $snowy-1
+
+.temperatureInfo[rainD = '']
+    background: linear-gradient(161deg, rgba(255, 255, 255, 0) -0.23%, rgba(190, 197, 214, 0.61) 60%) !important
+
+.temperatureInfo[snowD = '']
+    background: linear-gradient(161deg, $snowy-1 -0.23%, lighten($snowy-2, 50%)) !important
+
+.temperatureInfo[snowN = '']
+    background: linear-gradient(161deg, $snowy-1 -0.23%, lighten($snowy-2, 30%)) !important
+    color: $snowy-1
+
+.forecastPane[sunny = '']
+    background: linear-gradient(161deg, darken(#FFF, 1%) -0.23%, $sunny-1 56.61%)
+
+.forecastPane[overcast = '']
+    background: linear-gradient(161deg, $overcast-1 -0.23%, $overcast-2 60%) !important
+    color: black
+
+.forecastPane[clearD = '']
+    background: linear-gradient(161deg, rgba(233, 217, 200, 0.795) -0.23%, rgba(250, 211, 82, 0.753) 60%) !important
+
+.forecastPane[clearN = '']
+    background: linear-gradient(161deg, rgb(43, 49, 71) -0.23%, rgb(74, 80, 100) 60%) !important
+    color: $snowy-1
+
+.forecastPane[cloudyD = '']
+    background: linear-gradient(161deg, rgba(199, 197, 195, 0.637) -0.23%, rgba(231, 192, 61, 0.801) 60%) !important
+
+.forecastPane[cloudyN = '']
+    background: linear-gradient(161deg, rgb(55, 57, 61) -0.23%, rgba(51, 57, 70, 0.74) 60%) !important
+    color: $snowy-1
+
+.forecastPane[drizzleD = '']
+    background: linear-gradient(161deg, rgba(255, 255, 255, 0.658) -0.23%, rgba(182, 186, 196, 0.288) 60%) !important
+
+.forecastPane[drizzleN = '']
+    background: linear-gradient(210deg, rgba(0, 0, 0, 0.26) -0.23%, rgba(0, 0, 0, 0.185) 60%) !important
+    color: $snowy-1
+
+.forecastPane[rainD = '']
+    background: linear-gradient(161deg, rgba(255, 255, 255, 0) -0.23%, rgba(190, 197, 214, 0.61) 60%) !important
+
+.forecastPane[snowD = '']
+    background: linear-gradient(161deg, $snowy-1 -0.23%, lighten($snowy-2, 50%)) !important
+
+.forecastPane[snowN = '']
+    background: linear-gradient(161deg, $snowy-1 -0.23%, lighten($snowy-2, 30%)) !important
+    color: $snowy-1
 
 
 @media screen and (min-width: 600px)
@@ -366,6 +460,9 @@ main
         align-items: center
         img
            width: 25rem  
+
+       .forecast .forecastPane .secondWeatherImg
+        width: 10rem
         
 
 footer
