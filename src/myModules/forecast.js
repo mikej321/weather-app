@@ -96,7 +96,7 @@ async function displayForecast() {
             forecastPane.setAttribute('cloudyD', '');
             userCode = 'partly cloudy skies';
             weatherImg.src = PartlyCloudyDay;
-        } else if (todayWeatherArr['weather_code'][closestIndexDate] === 3 && todayWeatherArr['weather_code'][closestIndexDate] === 1) {
+        } else if (todayWeatherArr['weather_code'][closestIndexDate] === 3 && todayWeatherArr['is_day'][closestIndexDate] === 1) {
             forecastPane.setAttribute('overcast', '');
             userCode = 'overcast';
             weatherImg.src = Cloudy;
