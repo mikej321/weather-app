@@ -1,18 +1,46 @@
 import { content } from '../index';
+import { eraseForecastInfo } from './forecast';
 
 
 async function fetchArea() {
     // selectors for search functions
+    const zipContainer = document.querySelector('.zipContainer');
     const searchBar = document.querySelector('#zipCode');
     const searchButton = document.querySelector('.zipContainer > button');
     const tempInfo = document.querySelector('.temperatureInfo');
-    
+    let input;
+
     if (tempInfo.hasAttribute('data-weather')) {
         eraseTempInfo();
+        eraseForecastInfo();
     }
     // fetch properties for the area selection
     let areaArr = [];
-    let input = searchBar.value;
+    try {
+        if (zipContainer.querySelector('.errorMessage')) {
+            const errorMessage = document.querySelector('.errorMessage');
+            zipContainer.removeChild(errorMessage);
+        }
+
+        if (searchBar.value !== '' && JSON.parse(localStorage.getItem('town')) !== null) {
+            input = searchBar.value;
+            setName(input);
+        } else if (searchBar.value !== '' && JSON.parse(localStorage.getItem('town')) === null) {
+            input = searchBar.value;
+            setName(input);
+        } else if (searchBar.value === '' && JSON.parse(localStorage.getItem('town')) !== null) {
+            input = JSON.parse(localStorage.getItem('town'));
+        } else {
+            throw new Error('please enter a value');
+        }           
+    } catch (error) {
+        const errorMessage = document.createElement('p');
+        errorMessage.classList.add('errorMessage');
+        errorMessage.textContent = error;
+        zipContainer.append(errorMessage);
+        throw error;
+    }
+
     let url = `https://geocoding-api.open-meteo.com/v1/search?name=${input}&count=10&language=en&format=json`;
     let myResponse = await fetch(url, {
         mode: 'cors',
@@ -99,46 +127,62 @@ async function pickArea() {
     const areaChoice = document.querySelector('.areaChoice');
     let areaArr = await fetchArea();
     eraseAreaContents();
+    let newArr;
 
-    for (let [index, area] of areaArr.entries()) {
-        areaChoice.setAttribute('data-choice', '');
-        const areaEl = document.createElement('div');
-        areaEl.classList.add('area');
-        areaEl.dataset.choice = index;
-        areaChoice.append(areaEl);
-
-        const areaP = document.createElement('p');
-        areaP.textContent = area.townName + ',' + ' ';
-        areaEl.append(areaP);
-
-        const stateSpan = document.createElement('span');
-        stateSpan.classList.add('stateSpan');
-        stateSpan.textContent = area.stateName + ' ';
-        areaP.append(stateSpan);
-
-        const zipSpan = document.createElement('span');
-        zipSpan.classList.add('zipSpan');
-        zipSpan.textContent = area.postCode;
-        areaP.append(zipSpan);
+    if (JSON.parse(localStorage.getItem('choiceTown')) === null) {
+        for (let [index, area] of areaArr.entries()) {
+            areaChoice.setAttribute('data-choice', '');
+            const areaEl = document.createElement('div');
+            areaEl.classList.add('area');
+            areaEl.dataset.choice = index;
+            areaChoice.append(areaEl);
+    
+            const areaP = document.createElement('p');
+            areaP.textContent = area.townName + ',' + ' ';
+            areaEl.append(areaP);
+    
+            const stateSpan = document.createElement('span');
+            stateSpan.classList.add('stateSpan');
+            stateSpan.textContent = area.stateName + ' ';
+            areaP.append(stateSpan);
+    
+            const zipSpan = document.createElement('span');
+            zipSpan.classList.add('zipSpan');
+            zipSpan.textContent = area.postCode;
+            areaP.append(zipSpan);
+        }
+    
+        const areas = document.querySelectorAll('.area');
+        newArr = [areaArr, areas];
+    } else if (JSON.parse(localStorage.getItem('choiceTown')) !== null) {
+        newArr = [areaArr];
     }
 
-    const areas = document.querySelectorAll('.area');
-    let newArr = [areaArr, areas];
     return newArr;
 }
 
 async function pickedChoice() {
     const listOfTowns = await pickArea();
     function waitForChoice() {
-        return new Promise((resolve, reject) => {
-            listOfTowns[1].forEach((town) => {
-                town.addEventListener('click', (event) => {
-                    let tarEl = event.target;
-                    let choiceTown = listOfTowns[0][tarEl.dataset.choice];
-                    resolve(choiceTown);
+        let choiceTown;
+        if (JSON.parse(localStorage.getItem('choiceTown')) !== null) {
+            return new Promise((resolve, reject) => {
+                choiceTown = JSON.parse(localStorage.getItem('choiceTown'));
+                resolve(choiceTown);
+            })
+        } else {
+            return new Promise((resolve, reject) => {
+                listOfTowns[1].forEach((town) => {
+                    town.addEventListener('click', (event) => {
+                        let tarEl = event.target;
+                        choiceTown = listOfTowns[0][tarEl.dataset.choice];
+                        console.log(choiceTown)
+                        localStorage.setItem('choiceTown', JSON.stringify(choiceTown));
+                        resolve(choiceTown);
+                    })
                 })
             })
-        })
+        }
     }
     let resolvedChoice = await waitForChoice();
     return resolvedChoice;
@@ -146,11 +190,16 @@ async function pickedChoice() {
 
 async function fetchWeather() {
     let userChoice = await pickedChoice();
-    let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
+    let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
         mode: 'cors',
     });
     let myWeather = await myResponse.json();
     return [userChoice, myWeather];
+}
+
+function setName(town) {
+    localStorage.clear();
+    localStorage.setItem('town', JSON.stringify(town));
 }
 
 export { fetchWeather, eraseAreaContents, eraseTempInfo, fadeOut, fadeIn };

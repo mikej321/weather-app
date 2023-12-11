@@ -61,7 +61,6 @@ async function printWeather() {
     const conditions = document.createElement('p');
     let userCode;
 
-    console.log(myWeather)
     if (myWeather[1].current['weather_code'] === 0 && myWeather[1].current['is_day'] === 1) {
         temperatureInfo.setAttribute('clearD', '');
         userCode = 'clear skies';
@@ -178,7 +177,6 @@ async function printWeather() {
         temperatureInfo.setAttribute('overcast', '');
         userCode = 'overcast';
         weatherImg.src = Cloudy;
-        // weatherImg.src = Cloudy;
     } else if (myWeather[1].current['weather_code'] === 45 && myWeather[1].current['is_day'] === 0) {
         temperatureInfo.setAttribute('overcast', '');
         userCode = 'foggy';
@@ -265,138 +263,6 @@ async function printWeather() {
         weatherImg.src = StormCloud;
     }
 
-    // switch(myWeather[1].current['weather_code']) {
-    //     case 0:
-    //         userCode = 'clear skies';
-    //         weatherImg.src = SunRay;
-    //         break;
-        
-    //     case 1:
-    //         userCode = 'mainly clear skies';
-    //         weatherImg.src = SunRay;
-    //         break;
-
-    //     case 2:
-    //         userCode = 'partly cloudy skies';
-    //         weatherImg.src = Sun;
-    //         break;
-
-    //     case 3:
-    //         userCode = 'overcast';
-    //         weatherImg.src = Cloudy;
-    //         break;
-        
-    //     case 45:
-    //         userCode = 'foggy';
-    //         weatherImg.src = Cloudy;
-    //         break;
-
-    //     case 48:
-    //         userCode = 'very foggy';
-    //         weatherImg.src = Cloudy;
-    //         break;
-
-    //     case 51:
-    //         userCode = 'light drizzle';
-    //         weatherImg.src = LightDrizzle;
-    //         break;
-        
-    //     case 53:
-    //         userCode = 'moderate drizzle';
-    //         weatherImg.src = ModerateDrizzle;
-    //         break;
-
-    //     case 54:
-    //         userCode = 'dense drizzle';
-    //         weatherImg.src = Drizzle;
-    //         break;
-
-    //     case 55:
-    //         userCode = 'freezing drizzle';
-    //         weatherImg.src = ModerateDrizzle;
-    //         break;
-
-    //     case 57:
-    //         userCode = 'dense freezing drizzle';
-    //         weatherImg.src = Drizzle;
-    //         break;
-
-    //     case 61:
-    //         userCode = 'light rain';
-    //         weatherImg.src = LightRain;
-    //         break;
-
-    //     case 63:
-    //         userCode = 'moderate rain';
-    //         weatherImg.src = ModerateRain;
-    //         break;
-
-    //     case 65:
-    //         userCode = 'heavy rain';
-    //         weatherImg.src = HeavyRain;
-    //         break;
-
-    //     case 66:
-    //         userCode = 'light freezing rain';
-    //         weatherImg.src = LightRain;
-    //         break;
-
-    //     case 67:
-    //         userCode = 'heavy freezing rain';
-    //         weatherImg.src = HeavyRain;
-    //         break;
-
-    //     case 71:
-    //         userCode = 'light snow';
-    //         weatherImg.src = LightSnow;
-    //         break;
-
-    //     case 73:
-    //         userCode = 'moderate snow';
-    //         weatherImg.src = ModerateSnow;
-    //         break;
-
-    //     case 75:
-    //         userCode = 'heavy snow';
-    //         weatherImg.src = HeavySnow;
-    //         break;
-
-    //     case 80:
-    //         userCode = 'light showers';
-    //         weatherImg.src = LightRain;
-    //         break;
-
-    //     case 81:
-    //         userCode = 'moderate showers';
-    //         weatherImg.src = ModerateRain;
-    //         break;
-
-    //     case 82:
-    //         userCode = 'heavy showers';
-    //         weatherImg.src = HeavyRain;
-    //         break;
-
-    //     case 85:
-    //         userCode = 'light snow showers';
-    //         weatherImg.src = LightSnow;
-    //         break;
-
-    //     case 86:
-    //         userCode = 'heavy snow showers';
-    //         weatherImg.src = HeavySnow;
-    //         break;
-
-    //     case 95:
-    //         userCode = 'thunderstorms';
-    //         weatherImg.src = StormCloud;
-    //         break;
-
-    //     default:
-    //         break;    
-    // }
-        
-
-    
     conditions.textContent = `${userCode}`;
     areaEle.append(conditions);
 
