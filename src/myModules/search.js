@@ -176,7 +176,6 @@ async function pickedChoice() {
                     town.addEventListener('click', (event) => {
                         let tarEl = event.target;
                         choiceTown = listOfTowns[0][tarEl.dataset.choice];
-                        console.log(choiceTown)
                         localStorage.setItem('choiceTown', JSON.stringify(choiceTown));
                         resolve(choiceTown);
                     })
@@ -202,4 +201,4 @@ function setName(town) {
     localStorage.setItem('town', JSON.stringify(town));
 }
 
-export { fetchWeather, eraseAreaContents, eraseTempInfo, fadeOut, fadeIn };
+export { fetchWeather, eraseAreaContents, eraseTempInfo, fadeOut, fadeIn, setName };

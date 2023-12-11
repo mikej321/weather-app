@@ -127,6 +127,24 @@ nav
                 background: $base-1
                 pointer-events: none
                 transition: background 0.3s ease-in-out
+            #line1
+                transform: translateY(0)
+                transform-origin: left center
+                transition: 0.3s ease-in-out
+                &.animateTop
+                    transform: rotate(45deg)
+            #line2
+                transform: scale(1)
+                transform-origin: left center
+                transition: 0.3s ease-in-out
+                &.animateMiddle
+                    transform: scale(0)
+            #line3
+                transform: translateY(0)
+                transform-origin: left center
+                transition: 0.3s ease-in-out
+                &.animateBottom
+                    transform: rotate(-45deg)
         .links
             position: absolute
             right: 0
@@ -135,10 +153,11 @@ nav
             list-style: none       
             max-height: 0
             overflow: hidden
+            z-index: 3
             li
                 background: $base-5
                 padding: 2rem
-                opacity: .7
+                opacity: .9
                 transition: all 0.2s ease-in-out
                 cursor: pointer
                 &:hover
@@ -150,8 +169,12 @@ nav
                 color: $base-1
                 pointer-events: none
             
-.hamburger:hover .line
+.navbar .hamburger:hover .line
     background: #FFFFFF
+
+.navbar .links[active]
+    max-height: unset
+    overflow: unset
 
 @media screen and (min-width: 600px)
     nav
@@ -172,6 +195,9 @@ nav
                 li
                     opacity: 1 
                     padding: 2rem 4rem
+    .navbar .links[active]
+        max-height: 0
+        overflow: unset
     
 
 
@@ -189,6 +215,9 @@ main
         width: 100%
         align-items: center
         gap: 2rem
+        transition: opacity 0.2s ease-in-out
+        &[active]
+            opacity: 0
         button
             padding: .5rem 2rem
             border: none
@@ -267,7 +296,7 @@ main
             img
                 width: 13rem
             &[data-weather = '']
-                margin-top: 5rem
+                margin-top: 10rem
                 max-height: unset
                 text-align: center
                 padding-inline: 2rem

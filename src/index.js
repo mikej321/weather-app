@@ -1,7 +1,10 @@
 import './styles/style.sass';
+import { fetchWeather } from './myModules/search';
 import { displayForecast } from './myModules/forecast';
 import { addDays, startOfDay, format } from 'date-fns';
 import { checkForStorage } from './myModules/search';
+import { expandHamburger } from './myModules/mobileLinks';
+import { grabForecast } from './myModules/dailyForecast';
 
 
 const content = document.querySelector('.content');
@@ -25,9 +28,10 @@ function createNav() {
 
     const hamburger = document.createElement('div');
     hamburger.classList.add('hamburger');
-    for (let i = 0; i < 3; i++) {
+    for (let i = 1; i < 4; i++) {
         const line = document.createElement('div');
         line.classList.add('line');
+        line.id = `line${i}`;
         hamburger.append(line);
     }
     navBar.append(hamburger);
@@ -124,6 +128,10 @@ function createDailyForecastContent() {
     searchButton.textContent = 'Search';
     zipContainer.append(searchButton);
 
+    const areaChoice = document.createElement('div');
+    areaChoice.classList.add('areaChoice');
+    mainContent.append(areaChoice);
+
     const forecast = document.createElement('div');
     forecast.classList.add('forecast');
     mainContent.append(forecast);
@@ -156,37 +164,56 @@ function querySelectors() {
     searchButton.addEventListener('click', displayForecast);
 }
 
+function querySelectorForecast() {
+    const searchButton = document.querySelector('.zipContainer > button');
+    searchButton.addEventListener('click', grabForecast);
+}
+
 function checkStorage() {
     if (JSON.parse(localStorage.getItem('town')) !== null) {
         displayForecast();
     }
 }
 
-document.addEventListener('click', (event) => {
-    let tarElement = event.target;
-    if (tarElement.tagName == 'LI' && tarElement.firstChild.id == 'home') {
-        while (content.firstChild) {
-            content.removeChild(content.firstChild);
-        }
-        createNav();
-        createMainContent();
-        createFooter();
-        querySelectors();
-        checkStorage();
-    } else if (tarElement.tagName == 'LI' && tarElement.firstChild.id == 'forecast') {
-        console.log(tarElement.firstChild.id);
-        while (content.firstChild) {
-            content.removeChild(content.firstChild);
-        }
-        createNav();
-        createDailyForecastContent();
-        createFooter();
-        // querySelectors(); create a new function for fetching the area in dailyForecast.js for the forecast page
+function checkForecastStorage() {
+    if (JSON.parse(localStorage.getItem('town')) !== null) {
+        grabForecast();
     }
-})
+}
+
+
+
+function linkNavigation() {
+    document.addEventListener('click', (event) => {
+        let tarElement = event.target;
+        if (tarElement.tagName == 'LI' && tarElement.firstChild.id == 'home') {
+            while (content.firstChild) {
+                content.removeChild(content.firstChild);
+            }
+            createNav();
+            createMainContent();
+            createFooter();
+            querySelectors();
+            expandHamburger();
+            checkStorage();
+        } else if (tarElement.tagName == 'LI' && tarElement.firstChild.id == 'forecast') {
+            while (content.firstChild) {
+                content.removeChild(content.firstChild);
+            }
+            createNav();
+            createDailyForecastContent();
+            createFooter();
+            querySelectorForecast();
+            checkForecastStorage()
+            expandHamburger();
+        }
+    })
+}
 
 
 
 
 querySelectors();
-export { content };
+expandHamburger();
+linkNavigation();
+export { content, linkNavigation };
