@@ -155,7 +155,7 @@ async function pickArea() {
         const areas = document.querySelectorAll('.area');
         newArr = [areaArr, areas];
     } else if (JSON.parse(localStorage.getItem('choiceTown')) !== null) {
-        newArr = [areaArr];
+        newArr = areaArr;
     }
 
     return newArr;
@@ -201,4 +201,12 @@ function setName(town) {
     localStorage.setItem('town', JSON.stringify(town));
 }
 
-export { fetchWeather, eraseAreaContents, eraseTempInfo, fadeOut, fadeIn, setName };
+export { fetchWeather,
+         eraseAreaContents,
+         eraseTempInfo, 
+         fadeOut, 
+         fadeIn, 
+         setName, 
+         pickArea,
+         pickedChoice,
+};

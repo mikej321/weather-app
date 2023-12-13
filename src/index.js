@@ -4,7 +4,7 @@ import { displayForecast } from './myModules/forecast';
 import { addDays, startOfDay, format } from 'date-fns';
 import { checkForStorage } from './myModules/search';
 import { expandHamburger } from './myModules/mobileLinks';
-import { grabForecast } from './myModules/dailyForecast';
+import { fetchForecastWeather, pickForecastArea, printForecastWeather } from './myModules/dailyForecast';
 
 
 const content = document.querySelector('.content');
@@ -23,7 +23,7 @@ function createNav() {
     navBar.classList.add('navbar')
 
     const title = document.createElement('h1');
-    title.textContent = 'Temperate WeatherApp';
+    title.textContent = 'Temperate Weather';
     navBar.append(title);
 
     const hamburger = document.createElement('div');
@@ -166,7 +166,7 @@ function querySelectors() {
 
 function querySelectorForecast() {
     const searchButton = document.querySelector('.zipContainer > button');
-    searchButton.addEventListener('click', grabForecast);
+    searchButton.addEventListener('click', printForecastWeather);
 }
 
 function checkStorage() {
@@ -177,7 +177,7 @@ function checkStorage() {
 
 function checkForecastStorage() {
     if (JSON.parse(localStorage.getItem('town')) !== null) {
-        grabForecast();
+        printForecastWeather();
     }
 }
 

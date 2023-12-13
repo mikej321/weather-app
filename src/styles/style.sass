@@ -348,10 +348,14 @@ main
                 grid-template-columns: repeat(2, 1fr)
                 grid-template-areas: "time time" "image conditions"
                 align-items: center
-                height: 14rem
+                height: 16rem
                 width: 95%
                 padding: 1rem 2rem
                 border-radius: 8px
+                .dayDisplay
+                    font-size: 1.6rem
+                    grid-area: time
+                    justify-self: center                
                 .hoursDisplay
                     font-size: 1.6rem
                     grid-area: time
@@ -366,9 +370,25 @@ main
                         font-size: 1.6rem
                 .secondWeatherImg
                     grid-area: image
-                    width: 7rem
+                    width: 8rem
                     justify-self: start
                     align-self: center
+
+            .forecastPane[dailyForecast = '']
+                height: 18rem
+                .conditionContainer .tempForecastDisplay .minTemp,
+                .conditionContainer .tempForecastDisplay .maxTemp
+                    font-size: 1.6rem
+                .conditionContainer p[dayForecast = '']
+                    margin-top: 1rem
+                    line-height: 2.5rem
+            
+            .forecastPane[dailyForecast = ''] .secondWeatherImg
+                width: 11rem
+                           
+
+                
+                
 
 #zipCode::placeholder
     text-align: center

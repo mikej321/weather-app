@@ -84,9 +84,11 @@ async function displayForecast() {
         forecastPane.append(conditionContainer)
 
         const tempForecastDisplay = document.createElement('p');
+        const temperature = Math.floor(todayWeatherArr['temperature_2m'][closestIndexDate]);
+        
         tempForecastDisplay.classList.add('tempForecastDisplay');
         conditionContainer.append(tempForecastDisplay);
-        tempForecastDisplay.innerHTML = `${Math.floor(todayWeatherArr['temperature_2m'][closestIndexDate])} ${fahrenheitSymbol}`;
+        tempForecastDisplay.innerHTML = `${temperature} ${fahrenheitSymbol}`;
 
         const conditions = document.createElement('p');
         const weatherImg = new Image();
@@ -296,7 +298,24 @@ async function displayForecast() {
             weatherImg.src = StormCloud;
         }
 
-    conditions.textContent = `${userCode}`;
+        const feeling = document.createElement('span');
+
+        if (temperature < 30) {
+            feeling.textContent = 'and very cold';
+        } else if (temperature < 40) {
+            feeling.textContent = 'and cold';
+        } else if (temperature < 50) {
+            feeling.textContent = 'and warming up';
+        } else if (temperature < 60) {
+            feeling.textContent = 'and mild';
+        } else if (temperature < 80) {
+            feeling.textContent = 'and warm';
+        } else {
+            feeling.textContent = 'and very hot';
+        }
+
+    conditions.textContent = `${userCode} `;
+    conditions.append(feeling);
     conditionContainer.append(conditions);
     forecastPane.append(weatherImg);
     }        
