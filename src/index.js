@@ -1,6 +1,6 @@
 import './styles/style.sass';
 import { fetchWeather } from './myModules/search';
-import { displayForecast } from './myModules/forecast';
+import { displayCurrentWindInfo } from './myModules/windInfoHome';
 import { addDays, startOfDay, format } from 'date-fns';
 import { checkForStorage } from './myModules/search';
 import { expandHamburger } from './myModules/mobileLinks';
@@ -161,7 +161,7 @@ function loadInitialContent() {
 
 function querySelectors() {
     const searchButton = document.querySelector('.zipContainer > button');
-    searchButton.addEventListener('click', displayForecast);
+    searchButton.addEventListener('click', displayCurrentWindInfo);
 }
 
 function querySelectorForecast() {
@@ -171,7 +171,7 @@ function querySelectorForecast() {
 
 function checkStorage() {
     if (JSON.parse(localStorage.getItem('town')) !== null) {
-        displayForecast();
+        displayCurrentWindInfo();
     }
 }
 

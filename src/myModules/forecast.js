@@ -17,6 +17,9 @@ import Sun from '../assets/Sun.svg';
 import ClearNightStars from '../assets/Clear Night Stars.svg';
 import CloudyNight from '../assets/Cloudy Night.svg';
 import PartlyCloudyDay from '../assets/Partly Cloudy.svg';
+import StormSM from '../assets/Storm Cloud SM.svg';
+import StormyRainSM from '../assets/Stormy Rain SM.svg';
+
 
 
 
@@ -295,7 +298,7 @@ async function displayForecast() {
         } else if (todayWeatherArr['weather_code'][closestIndexDate] === 95 && todayWeatherArr['is_day'][closestIndexDate] === 0) {
             forecastPane.setAttribute('drizzleN', '');
             userCode = 'Thunderstorms';
-            weatherImg.src = StormCloud;
+            weatherImg.src = StormyRainSM;
         }
 
         const feeling = document.createElement('span');

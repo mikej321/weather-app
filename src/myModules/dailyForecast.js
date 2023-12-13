@@ -16,6 +16,9 @@ import Sun from '../assets/Sun.svg';
 import ClearNightStars from '../assets/Clear Night Stars.svg';
 import CloudyNight from '../assets/Cloudy Night.svg';
 import PartlyCloudyDay from '../assets/Partly Cloudy.svg';
+import StormSM from '../assets/Storm Cloud SM.svg';
+import StormyRainSM from '../assets/Stormy Rain SM.svg';
+
 
 import { format, closestTo, parseISO, closestIndexTo, addDays, subDays } from "date-fns";
 
@@ -157,7 +160,7 @@ async function pickForecastChoice() {
 
 async function fetchForecastWeather() {
     let userChoice = await pickForecastChoice();
-    let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=14&hourly=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
+    let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,sunrise,sunset,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,temperature_2m_min&forecast_days=14&hourly=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
         mode: 'cors',
     });
     let myWeather = await myResponse.json();
@@ -387,7 +390,8 @@ async function printForecastWeather() {
             case 95:
                 forecastPane.setAttribute('rainD', '');
                 userCode = 'Thunderstorms';
-                weatherImg.src = StormCloud;
+                weatherImg.src = StormyRainSM;
+                weatherImg.setAttribute('stormy', '');
                 break;
 
             default:
