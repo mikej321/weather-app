@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 108.5 128.79">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #7478ff;
+        stroke-miterlimit: 10;
+        stroke-width: .26px;
+      }
+
+      .cls-2 {
+        fill: #fffc6a;
+      }
+
+      .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-4 {
+        filter: url(#luminosity-noclip);
+      }
+
+      .cls-5 {
+        mask: url(#mask);
+      }
+
+      .cls-3 {
+        fill: #636363;
+      }
+    </style>
+    <filter id="luminosity-noclip" x="-2.08" y="-2.48" width="113" height="64" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-color="#fff" result="bg"/>
+      <feBlend in="SourceGraphic" in2="bg"/>
+    </filter>
+    <mask id="mask" x="-2.08" y="-2.48" width="113" height="64" maskUnits="userSpaceOnUse">
+      <g class="cls-4">
+        <image width="113" height="64" transform="translate(-2.08 -2.48)" xlink:href="data:image/png;base64,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"/>
+      </g>
+    </mask>
+  </defs>
+  <g id="Stormy_Rain_SM" data-name="Stormy Rain SM">
+    <g>
+      <g class="cls-5">
+        <g>
+          <path class="cls-3" d="m89.97,58.74h-12.52s-3.44.01-3.44.01l-18.3.02h-3.37s-18.63.02-18.63.02h-3.35s-13.59.01-13.59.01c-.57,0-1.14-.03-1.69-.08h15.3s3.34,0,3.34,0h18.62s3.36,0,3.36,0h18.3s3.43,0,3.43,0h12.52Z"/>
+          <path class="cls-3" d="m16.78,58.8h-1.69v-.08c.55.05,1.12.08,1.69.08Z"/>
+          <polygon class="cls-3" points="93.15 58.74 93.15 58.8 16.78 58.8 30.37 58.79 33.72 58.79 52.35 58.77 55.72 58.77 74.01 58.76 77.45 58.75 89.97 58.74 90.3 58.74 93.15 58.74"/>
+          <path class="cls-3" d="m93.15,58.74c-.47.04-.95.06-1.43.06s-.95-.02-1.42-.06h2.85Z"/>
+          <path class="cls-3" d="m108.5,42.02c0,8.79-6.75,16-15.35,16.72h-2.85s-.33,0-.33,0h-12.52s-3.43,0-3.43,0h-18.3s-3.36,0-3.36,0h-18.62s-3.34,0-3.34,0h-15.3c-8.47-.86-15.09-8.01-15.09-16.7,0-8.13,5.78-14.91,13.46-16.45-.12-.83-.19-1.68-.19-2.54,0-9.27,7.51-16.78,16.78-16.78,3.44,0,6.64,1.04,9.3,2.81C42.14,3.68,47.77,0,54.25,0c8,0,14.7,5.6,16.38,13.1,3.02-2.95,7.16-4.77,11.72-4.77,9.27,0,16.78,7.51,16.78,16.78,0,.61-.03,1.21-.1,1.81,5.6,2.72,9.46,8.46,9.46,15.11Z"/>
+        </g>
+      </g>
+      <path class="cls-2" d="m27.54,100.12l4.21-27.2-4.37-.33s1.22-5.57,2.99-13.8c0,0,0,0,0-.01,0-.02.01-.04.01-.07h3.34v.07s-.01.01-.01.01l-1.26,6.87,4.52.65-9.43,33.8Z"/>
+      <path class="cls-2" d="m49.66,128.79l4.21-46.81-4.37-.56s1.15-9.08,2.85-22.62c0-.01,0-.02,0-.03,0-.02,0-.03,0-.04h3.36s0,.04,0,.04v.03s-1.14,10.7-1.14,10.7l4.52,1.11-9.43,58.18Z"/>
+      <path class="cls-2" d="m71.78,100.17l4.21-29.19-4.37-.35s.95-4.65,2.39-11.81c0-.02.01-.05.01-.07,0,0,0-.02,0-.03h3.43v.02s-.02.07-.02.07l-.74,4.38,4.52.69-9.43,36.27Z"/>
+      <line class="cls-1" x1="44.1" y1="58.8" x2="43.06" y2="64.79"/>
+      <line class="cls-1" x1="47.49" y1="63.49" x2="45.27" y2="76.11"/>
+      <line class="cls-1" x1="40.46" y1="68.69" x2="38.25" y2="81.31"/>
+      <line class="cls-1" x1="47.49" y1="85.34" x2="45.27" y2="97.96"/>
+      <line class="cls-1" x1="40.07" y1="96.4" x2="38.25" y2="107.07"/>
+      <line class="cls-1" x1="45.92" y1="110.06" x2="44.49" y2="118.26"/>
+      <line class="cls-1" x1="14.96" y1="100.17" x2="12.75" y2="112.79"/>
+      <line class="cls-1" x1="12.1" y1="90.03" x2="9.89" y2="102.65"/>
+      <line class="cls-1" x1="34.48" y1="87.42" x2="31.48" y2="103.95"/>
+      <line class="cls-1" x1="24.98" y1="79.49" x2="21.86" y2="97.96"/>
+      <line class="cls-1" x1="20.82" y1="75.07" x2="18.99" y2="85.73"/>
+      <line class="cls-1" x1="16.26" y1="66.61" x2="14.05" y2="79.23"/>
+      <line class="cls-1" x1="63.36" y1="68.69" x2="60.62" y2="84.95"/>
+      <line class="cls-1" x1="85.73" y1="64.79" x2="83" y2="81.05"/>
+      <line class="cls-1" x1="67.52" y1="77.8" x2="62.97" y2="104.99"/>
+      <line class="cls-1" x1="92.24" y1="72.33" x2="87.68" y2="99.52"/>
+      <line class="cls-1" x1="59.45" y1="92.63" x2="58.02" y2="100.82"/>
+      <line class="cls-1" x1="68.17" y1="110.19" x2="66.09" y2="122.68"/>
+      <line class="cls-1" x1="82.22" y1="93.8" x2="80.14" y2="106.29"/>
+    </g>
+  </g>
+</svg>
