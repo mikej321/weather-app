@@ -33,6 +33,13 @@ async function printWeather() {
     eraseTempInfo();
     eraseAreaContents();
     
+    const today = new Date(myWeather[1]['current']['time']);
+    let todayDateDisplay = format(today, 'MMMM do yyyy');
+    
+    const dateDisplay = document.createElement('p');
+    dateDisplay.textContent = `${todayDateDisplay}`;
+    temperatureInfo.append(dateDisplay);
+
     temperatureInfo.dataset.weather = '';
     const areaEle = document.createElement('div');
     areaEle.classList.add('areaElement');
@@ -40,17 +47,11 @@ async function printWeather() {
     
     const weatherImg = new Image();
     weatherImg.classList.add('weatherImg');
-    temperatureInfo.insertAdjacentElement('afterbegin', weatherImg);
+    temperatureInfo.append(weatherImg);
     
     let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     
-    const today = new Date(myWeather[1]['current']['time']);
-    let todayDateDisplay = format(today, 'MMMM do yyyy');
-    
-    const dateDisplay = document.createElement('p');
-    dateDisplay.textContent = `${todayDateDisplay}`;
-    areaEle.append(dateDisplay);
 
     const townName = document.createElement('p');
     townName.textContent = `${myWeather[0].townName}, ${myWeather[0].stateName}`;

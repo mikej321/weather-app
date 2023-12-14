@@ -282,20 +282,24 @@ main
             position: relative
             font-size: 1.2rem
             display: grid
-            grid-template-columns: repeat(2, 1fr)
-            grid-template-areas: "image image" "temperature wind"
+            grid-template-areas: "date" "image" "temperature" "etc"
             width: 100%
             max-width: 95%
             align-items: center
             padding-top: 3rem
+            gap: 2rem
             height: 100%
             max-height: 0
             overflow: hidden
             border-radius: 8px
             background: #FFF
             transition: opacity 0.2s ease-in-out
+            & > p:first-child
+                grid-area: date
+                font-size: 1.6rem
+                font-weight: bold
             img
-                width: 12rem
+                width: 15rem
                 grid-area: image
                 justify-self: center
             &[data-weather = '']
@@ -312,25 +316,20 @@ main
                     align-items: center
                     grid-area: temperature
                     p:first-child
-                        margin-top: 2rem
                         font-size: 1.6rem
                     p:nth-child(2)
-                        margin-top: .2rem
                         font-size: 2rem
-                    p:nth-child(3)
-                        margin-top: .5rem
-                        font-size: 2.5rem
+                        font-weight: bold
                     p:last-child
-                        margin-top: 1rem
                         font-size: 2rem
                 .windInfo
                     align-self: center
+                    grid-area: etc
                     display: grid
                     gap: 1rem
-                    grid-template-areas: "img" "speed" "gusts"
-                    margin-top: 2rem
-                    
+                    grid-template-areas: "img img" "speed gusts"
                     .windImg
+                        display: none
                         width: 3rem
                         grid-area: img
                     .windContainer
@@ -404,8 +403,6 @@ main
                     width: 8rem
                     justify-self: start
                     align-self: center
-                    position: relative
-                    left: 3rem
 
             .forecastPane[dailyForecast = '']
                 height: 18rem
@@ -417,12 +414,11 @@ main
                     line-height: 2.5rem
             
             .forecastPane[dailyForecast = ''] .secondWeatherImg
-                width: 10rem
-                position: relative
-                left: 3rem
+                width: 8rem
+                
 
             .forecastPane[dailyForecast = ''] .secondWeatherImg[stormy = '']
-                width: 8rem
+                width: 7rem
                            
 
                 
@@ -546,26 +542,38 @@ main
         
        .temperatureInfo
         display: grid
-        grid-template-columns: repeat(3, 1fr) 
-        grid-template-areas: "image temperature wind"
+        grid-template-areas: "date date" "image temperature" "image etc" 
         justify-items: center
         align-items: center
-        img
-           width: 15rem
-           grid-area: image
+        gap: 5rem
+        & p:first-child
+            font-size: 2rem
+
         &[data-weather = '']
             min-height: 30rem
+            padding-inline: unset
+
+            .weatherImg
+                width: 20rem
+                grid-area: image
+            .areaElement
+                grid-area: temperature
+                p:first-child
+                    font-size: 1.8rem
+                    font-weight: bold
+                p:nth-child(2)
+                    font-size: 2.5rem
+                    font-weight: bold             
             .windInfo
-                grid-area: wind
-                margin-top: 2.2rem
+                grid-area: etc
+                gap: 1.5rem
                 .windContainer p:first-child,
                 .gustContainer p:first-child
                     font-size: 1.8rem !important
                 .windContainer p:last-child,
                 .gustContainer p:last-child
                     font-size: 1.6rem !important
-        .areaElement
-            grid-area: temperature
+        
 
        
     main .mainContent .forecast .forecastPane
