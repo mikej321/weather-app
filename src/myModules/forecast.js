@@ -83,11 +83,13 @@ async function displayForecast() {
         let fahrenheitSymbol = '&#8457';
 
         const conditionContainer = document.createElement('div');
+        conditionContainer.setAttribute('home', '');
         conditionContainer.classList.add('conditionContainer');
         forecastPane.append(conditionContainer)
 
         const tempForecastDisplay = document.createElement('p');
         const temperature = Math.floor(todayWeatherArr['temperature_2m'][closestIndexDate]);
+        const formerTemp = Math.floor(todayWeatherArr['temperature_2m'][closestIndexDate - 1]);
         
         tempForecastDisplay.classList.add('tempForecastDisplay');
         conditionContainer.append(tempForecastDisplay);
@@ -303,18 +305,10 @@ async function displayForecast() {
 
         const feeling = document.createElement('span');
 
-        if (temperature < 30) {
-            feeling.textContent = 'and very cold';
-        } else if (temperature < 40) {
-            feeling.textContent = 'and cold';
-        } else if (temperature < 50) {
+        if (temperature < formerTemp) {
+            feeling.textContent = 'and cooling down';
+        } else if (temperature > formerTemp) {
             feeling.textContent = 'and warming up';
-        } else if (temperature < 60) {
-            feeling.textContent = 'and mild';
-        } else if (temperature < 80) {
-            feeling.textContent = 'and warm';
-        } else {
-            feeling.textContent = 'and very hot';
         }
 
     conditions.textContent = `${userCode} `;

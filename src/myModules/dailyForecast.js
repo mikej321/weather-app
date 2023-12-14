@@ -185,7 +185,6 @@ async function printForecastWeather() {
     const today = new Date(myWeather[1]['current']['time']);
     
     const weekWeatherArr = myWeather[1]['daily'];
-    console.log(weekWeatherArr)
     const weekArr = myWeather[1]['daily']['time'];
     let finishedWeekArr = [];
 
@@ -219,22 +218,24 @@ async function printForecastWeather() {
         let fahrenheitSymbol = '&#8457';
 
         const conditionContainer = document.createElement('div');
+        conditionContainer.setAttribute('conditionForecast', '');
         conditionContainer.classList.add('conditionContainer');
         forecastPane.append(conditionContainer);
 
-        const tempForecastDisplay = document.createElement('div');
-        tempForecastDisplay.classList.add('tempForecastDisplay');
-        conditionContainer.append(tempForecastDisplay);
-        
+        const temperatures = document.createElement('div');
+        temperatures.classList.add('temperatures');
+
         const minTempDisplay = document.createElement('p');
         minTempDisplay.classList.add('minTemp');
-        minTempDisplay.innerHTML = `min: ${minTemp} ${fahrenheitSymbol}`;
-        tempForecastDisplay.append(minTempDisplay);
+        minTempDisplay.innerHTML = `min<hr /><br /> ${minTemp} ${fahrenheitSymbol}`;
+        temperatures.append(minTempDisplay);
 
         const maxTempDisplay = document.createElement('p');
         maxTempDisplay.classList.add('maxTemp');
-        maxTempDisplay.innerHTML = `max: ${maxTemp} ${fahrenheitSymbol}`;
-        tempForecastDisplay.append(maxTempDisplay);
+        maxTempDisplay.innerHTML = `max<hr /><br /> ${maxTemp} ${fahrenheitSymbol}`;
+        temperatures.append(maxTempDisplay);
+
+        conditionContainer.append(temperatures);
 
 
         const conditions = document.createElement('p');
@@ -406,13 +407,15 @@ async function printForecastWeather() {
         } else if (average < 40) {
             feeling.textContent = 'and cold';
         } else if (average < 50) {
-            feeling.textContent = 'and warming up';
-        } else if (average < 60) {
             feeling.textContent = 'and mild';
+        } else if (average < 60) {
+            feeling.textContent = 'and slightly warm';
+        } else if (average < 70) {
+            feeling.textContent = 'and moderately warm';
         } else if (average < 80) {
             feeling.textContent = 'and warm';
         } else {
-            feeling.textContent = 'and very hot';
+            feeling.textContent = 'and hot';
         }
 
         conditions.setAttribute('dayForecast', '');
@@ -421,7 +424,7 @@ async function printForecastWeather() {
         conditionContainer.append(conditions);
         forecastPane.append(weatherImg);
     }
-    return myWeather;
+    return weekWeatherArr;
 }
 
 export { fetchForecastWeather, pickForecastChoice, printForecastWeather };

@@ -60,7 +60,6 @@ async function printWeather() {
     let fahrenheitSymbol = '&#8457';
     const temperatureEle = document.createElement('p');
     let temperature = Math.floor(myWeather[1].current['temperature_2m']);
-    console.log(temperature)
     temperatureEle.innerHTML = `${Math.floor(temperature)} ${fahrenheitSymbol}`;
     areaEle.append(temperatureEle);
     
@@ -269,24 +268,8 @@ async function printWeather() {
         weatherImg.src = StormyRainSM;
     }
 
-    const feeling = document.createElement('span');
-
-    if (temperature < 30) {
-        feeling.textContent = 'and very cold';
-    } else if (temperature < 40) {
-        feeling.textContent = 'and cold';
-    } else if (temperature < 50) {
-        feeling.textContent = 'and warming up';
-    } else if (temperature < 60) {
-        feeling.textContent = 'and mild';
-    } else if (temperature < 80) {
-        feeling.textContent = 'and warm';
-    } else {
-        feeling.textContent = 'and very hot';
-    }
-
+    
     conditions.textContent = `${userCode} `;
-    conditions.append(feeling);
     areaEle.append(conditions);
 
     return myWeather;

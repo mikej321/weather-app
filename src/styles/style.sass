@@ -328,6 +328,7 @@ main
                     display: grid
                     gap: 1rem
                     grid-template-areas: "img img" "speed gusts"
+                    grid-template-columns: repeat(2, 1fr)
                     .windImg
                         display: none
                         width: 3rem
@@ -378,12 +379,13 @@ main
                 grid-template-columns: repeat(2, 1fr)
                 grid-template-areas: "time time" "image conditions"
                 align-items: center
-                height: 16rem
                 width: 95%
+                gap: 2rem
                 padding: 1rem 2rem
                 border-radius: 8px
                 .dayDisplay
                     font-size: 1.6rem
+                    font-weight: bold
                     grid-area: time
                     justify-self: center                
                 .hoursDisplay
@@ -392,33 +394,90 @@ main
                     justify-self: center
                 .conditionContainer
                     grid-area: conditions
-                    justify-self: center
-                    text-align: center
-                    p:first-child
-                        font-size: 2rem
-                    p:last-child
+                    display: grid
+                    grid-template-columns: repeat(2, 1fr)
+                    justify-content: space-between
+                    row-gap: 1rem
+                    text-align: end
+                    &[home = '']
+                        display: flex
+                        flex-direction: column
+                        align-items: center
+                        p:first-child
+                            font-size: 2rem
+                        p:last-child
+                            text-align: center
+                            font-size: 1.6rem
+                    &[conditionForecast = '']
+                        grid-template-areas: "temps sun" "forecast forecast"
+
+                    p[dayForecast = '']
                         font-size: 1.6rem
+                        font-weight: bold
+                        grid-area: forecast
+                        justify-self: end
+                    // .tempForecastDisplay
+                    //     display: grid
+                    //     grid-template-areas: "temps sun"
+                    //     grid-template-columns: repeat(2, 1fr)
+                
+                    .temperatures
+                        grid-area: temps
+                        p:first-child
+                            font-size: 2rem
+                            &.minTemp
+                                position: relative
+                                font-size: 1.4rem
+                                hr
+                                    color: black
+                                    position: absolute
+                                    width: 100%
+                                    max-width: 3rem
+                                    right: 0
+                                    bottom: 55%
+                        p:last-child
+                            position: relative
+                            font-size: 1.4rem
+                            hr
+                                color: black
+                                width: 100%
+                                max-width: 3rem
+                                position: absolute
+                                right: 0
+                                bottom: 55%
+                    .sunContainer
+                        grid-area: sun
+                        font-size: 1.4rem
+                        p:first-child,
+                        p:last-child
+                            position: relative
+                            hr
+                                position: absolute
+                                color: black
+                                width: 100%
+                                max-width: 4.2rem
+                                right: 0
+                                bottom: 55%
+                            
+                            
+
                 .secondWeatherImg
                     grid-area: image
-                    width: 8rem
+                    width: 10rem
                     justify-self: start
-                    align-self: center
+                    align-self: start
+                    &[stormy = '']
+                        position: relative
+                        top: .9rem
 
-            .forecastPane[dailyForecast = '']
-                height: 18rem
-                .conditionContainer .tempForecastDisplay .minTemp,
-                .conditionContainer .tempForecastDisplay .maxTemp
-                    font-size: 1.6rem
-                .conditionContainer p[dayForecast = '']
-                    margin-top: 1rem
-                    line-height: 2.5rem
+            
             
             .forecastPane[dailyForecast = ''] .secondWeatherImg
-                width: 8rem
+                width: 12rem
                 
 
             .forecastPane[dailyForecast = ''] .secondWeatherImg[stormy = '']
-                width: 7rem
+                width: 11rem
                            
 
                 
@@ -518,8 +577,13 @@ main
     background: linear-gradient(161deg, $snowy-1 -0.23%, lighten($snowy-2, 30%)) !important
     color: $snowy-1
 
+@media screen and (min-height: 375px)
+    main .mainContent .forecast .forecastPane[dailyForecast = '']
+        grid-template-columns: 90px 1fr
+        .secondWeatherImg
+            width: 9rem
 
-@media screen and (min-width: 600px)
+@media screen and (min-width: 450px)
     main .mainContent
        display: flex
        flex-direction: column
@@ -545,7 +609,7 @@ main
         grid-template-areas: "date date" "image temperature" "image etc" 
         justify-items: center
         align-items: center
-        gap: 5rem
+        gap: 3rem
         & p:first-child
             font-size: 2rem
 
@@ -566,7 +630,10 @@ main
                     font-weight: bold             
             .windInfo
                 grid-area: etc
-                gap: 1.5rem
+                gap: 2rem
+                .windImg
+                    display: block
+                    
                 .windContainer p:first-child,
                 .gustContainer p:first-child
                     font-size: 1.8rem !important
@@ -576,10 +643,11 @@ main
         
 
        
-    main .mainContent .forecast .forecastPane
-        height: 16rem
+    main .mainContent .forecast .forecastPane[dailyForecast = '']
+        grid-template-columns: repeat(2, 1fr)
+        height: unset
         .secondWeatherImg
-           width: 10rem
+           width: 12rem
            justify-self: center
         
 

@@ -44,7 +44,7 @@ async function displayCurrentWindInfo() {
     windInfo.append(gustContainer);
     temperatureInfo.append(windInfo);
 
-    console.log(myWeather)
+    return myWeather;
 }
 
 export { displayCurrentWindInfo };

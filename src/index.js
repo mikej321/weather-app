@@ -5,6 +5,7 @@ import { addDays, startOfDay, format } from 'date-fns';
 import { checkForStorage } from './myModules/search';
 import { expandHamburger } from './myModules/mobileLinks';
 import { fetchForecastWeather, pickForecastArea, printForecastWeather } from './myModules/dailyForecast';
+import { displayEtcInfoForecast } from './myModules/windInfoForecast';
 
 
 const content = document.querySelector('.content');
@@ -166,7 +167,7 @@ function querySelectors() {
 
 function querySelectorForecast() {
     const searchButton = document.querySelector('.zipContainer > button');
-    searchButton.addEventListener('click', printForecastWeather);
+    searchButton.addEventListener('click', displayEtcInfoForecast);
 }
 
 function checkStorage() {
@@ -177,7 +178,7 @@ function checkStorage() {
 
 function checkForecastStorage() {
     if (JSON.parse(localStorage.getItem('town')) !== null) {
-        printForecastWeather();
+        displayEtcInfoForecast();
     }
 }
 
