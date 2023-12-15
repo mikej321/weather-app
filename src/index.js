@@ -8,6 +8,7 @@ import { fetchForecastWeather, pickForecastArea, printForecastWeather } from './
 import { displayEtcInfoForecast } from './myModules/windInfoForecast';
 
 
+
 const content = document.querySelector('.content');
 
 
@@ -57,8 +58,8 @@ function createNav() {
 
     const linkContainer3 = document.createElement('li');
     const link3 = document.createElement('a');
-    link3.textContent = 'Warnings';
-    link3.id = 'warnings';
+    link3.textContent = 'About';
+    link3.id = 'about';
     linkContainer3.append(link3);
     links.append(linkContainer3);
 
@@ -105,39 +106,6 @@ function createMainContent() {
     mainContent.append(forecast);
 }
 
-function createDailyForecastContent() {
-    const main = document.createElement('main');
-    content.append(main);
-
-    const mainContent = document.createElement('div');
-    mainContent.classList.add('mainContent');
-    main.append(mainContent);
-
-    const zipContainer = document.createElement('div');
-    zipContainer.classList.add('zipContainer');
-    mainContent.append(zipContainer);
-
-    const zipCode = document.createElement('input');
-    zipCode.setAttribute('type', 'text');
-    zipCode.name = 'zipCode';
-    zipCode.id = 'zipCode';
-    zipCode.placeholder = 'Insert Zip or County Name Here';
-    zipContainer.append(zipCode);
-
-    const searchButton = document.createElement('button');
-    searchButton.setAttribute('type', 'button');
-    searchButton.textContent = 'Search';
-    zipContainer.append(searchButton);
-
-    const areaChoice = document.createElement('div');
-    areaChoice.classList.add('areaChoice');
-    mainContent.append(areaChoice);
-
-    const forecast = document.createElement('div');
-    forecast.classList.add('forecast');
-    mainContent.append(forecast);
-}
-
 function createFooter() {
     const footer = document.createElement('footer');
     content.append(footer);
@@ -170,6 +138,8 @@ function querySelectorForecast() {
     searchButton.addEventListener('click', displayEtcInfoForecast);
 }
 
+
+
 function checkStorage() {
     if (JSON.parse(localStorage.getItem('town')) !== null) {
         displayCurrentWindInfo();
@@ -179,6 +149,12 @@ function checkStorage() {
 function checkForecastStorage() {
     if (JSON.parse(localStorage.getItem('town')) !== null) {
         displayEtcInfoForecast();
+    }
+}
+
+function checkWeatherAlertStorage() {
+    if (JSON.parse(localStorage.getItem('town')) !== null) {
+        weatherAlerts();
     }
 }
 
@@ -202,13 +178,21 @@ function linkNavigation() {
                 content.removeChild(content.firstChild);
             }
             createNav();
-            createDailyForecastContent();
+            createMainContent();
             createFooter();
             querySelectorForecast();
             checkForecastStorage()
             expandHamburger();
+        } else if (tarElement.tagName == 'LI' && tarElement.firstChild.id == 'about') {
+            while (content.firstChild) {
+                content.removeChild(content.firstChild);
+            }
+            createNav();
+            createMainContent();
+            createFooter();
+            expandHamburger();
         }
-    })
+    }) 
 }
 
 

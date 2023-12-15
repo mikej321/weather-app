@@ -4,6 +4,7 @@ import { closestTo, parseISO, closestIndexTo, eachHourOfInterval, addHours, addD
 async function displayEtcInfoForecast() {
     let myWeather = await printForecastWeather();
     const conditionContainer = document.querySelectorAll('.conditionContainer');
+    
 
     for (let i = 1; i < 8; i++) {
         const sunContainer = document.createElement('div');
@@ -25,6 +26,8 @@ async function displayEtcInfoForecast() {
 
         conditionContainer[i - 1].append(sunContainer);
     }
+
+    return myWeather;
 
 }
 

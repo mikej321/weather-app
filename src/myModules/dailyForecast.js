@@ -18,7 +18,7 @@ import CloudyNight from '../assets/Cloudy Night.svg';
 import PartlyCloudyDay from '../assets/Partly Cloudy.svg';
 import StormSM from '../assets/Storm Cloud SM.svg';
 import StormyRainSM from '../assets/Stormy Rain SM.svg';
-
+import { displayCurrentWindInfo } from "./windInfoHome";
 
 import { format, closestTo, parseISO, closestIndexTo, addDays, subDays } from "date-fns";
 
@@ -164,6 +164,7 @@ async function fetchForecastWeather() {
         mode: 'cors',
     });
     let myWeather = await myResponse.json();
+    await displayCurrentWindInfo();
     return [userChoice, myWeather];
 }
 
@@ -179,6 +180,8 @@ async function printForecastWeather() {
     if (forecast.hasChildNodes) {
         eraseForecastInfo();
     }
+
+    // displayCurrentWindInfo();
 
     forecast.setAttribute('data-weather', '');
 
