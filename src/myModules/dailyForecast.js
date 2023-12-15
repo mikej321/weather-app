@@ -30,6 +30,7 @@ async function grabForecast() {
 
     let areaArr = [];
 
+    // will error out if user doesn't enter a town name
     try {
         if (zipContainer.querySelector('.errorMessage')) {
             const errorMessage = document.querySelector('.errorMessage');
@@ -100,6 +101,7 @@ async function pickForecastArea() {
     }
     let newArr;
 
+    // displays the areas that the program has found through searching
     if (JSON.parse(localStorage.getItem('choiceTown')) === null) {
         for (let [index, area] of areaArr.entries()) {
             areaChoice.setAttribute('data-choice', '');
@@ -133,6 +135,7 @@ async function pickForecastArea() {
 }
 
 async function pickForecastChoice() {
+    // will send former choice if user has visited the site, otherwise it will send the information from the picked area for processing
     const listOfTowns = await pickForecastArea();
     function waitForForecastChoice() {
         let choiceTown;
@@ -159,6 +162,7 @@ async function pickForecastChoice() {
 }
 
 async function fetchForecastWeather() {
+    // processes the information from the former function for the weather forecast
     let userChoice = await pickForecastChoice();
     let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,sunrise,sunset,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,temperature_2m_min&forecast_days=14&hourly=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
         mode: 'cors',
@@ -169,6 +173,7 @@ async function fetchForecastWeather() {
 }
 
 async function printForecastWeather() {
+    // displays the weather forecast
     let myWeather = await fetchForecastWeather();
     const areaChoice = document.querySelector('.areaChoice');
     const forecast = document.querySelector('.forecast');
@@ -180,8 +185,6 @@ async function printForecastWeather() {
     if (forecast.hasChildNodes) {
         eraseForecastInfo();
     }
-
-    // displayCurrentWindInfo();
 
     forecast.setAttribute('data-weather', '');
 
@@ -246,6 +249,7 @@ async function printForecastWeather() {
         weatherImg.classList.add('secondWeatherImg');
         let userCode;
 
+        // different attributes will be selected to change the background color of the pane based on the weather code that is provided
         switch(dailyWeatherCode) {
             case 0:
                 forecastPane.setAttribute('clearD', '');

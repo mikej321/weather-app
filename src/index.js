@@ -1,6 +1,7 @@
 import './styles/style.sass';
 import { fetchWeather } from './myModules/search';
 import { displayCurrentWindInfo } from './myModules/windInfoHome';
+// date-fns imports
 import { addDays, startOfDay, format } from 'date-fns';
 import { checkForStorage } from './myModules/search';
 import { expandHamburger } from './myModules/mobileLinks';
@@ -122,6 +123,7 @@ function createFooter() {
 }
 
 function loadInitialContent() {
+    // helper function for initially loading content to the page
     createNav();
     createMainContent();
     createFooter();
@@ -129,11 +131,13 @@ function loadInitialContent() {
 }
 
 function querySelectors() {
+    // helper function that adds functionality to the search button to display weather on home page
     const searchButton = document.querySelector('.zipContainer > button');
     searchButton.addEventListener('click', displayCurrentWindInfo);
 }
 
 function querySelectorForecast() {
+    // helper function that adds functionality to the search button to display weather on the forecast page
     const searchButton = document.querySelector('.zipContainer > button');
     searchButton.addEventListener('click', displayEtcInfoForecast);
 }
@@ -141,26 +145,23 @@ function querySelectorForecast() {
 
 
 function checkStorage() {
+    // function that searches localStorage on home page to initially load
+    
+    // this is used to ensure that the user doesn't have to constantly type their info if they've already visited the page
     if (JSON.parse(localStorage.getItem('town')) !== null) {
         displayCurrentWindInfo();
     }
 }
 
 function checkForecastStorage() {
+    // this is used to display the forecast information on load if the user has visited the page already
     if (JSON.parse(localStorage.getItem('town')) !== null) {
         displayEtcInfoForecast();
     }
 }
 
-function checkWeatherAlertStorage() {
-    if (JSON.parse(localStorage.getItem('town')) !== null) {
-        weatherAlerts();
-    }
-}
-
-
-
 function linkNavigation() {
+    // an event listener for displaying the home and forecast page
     document.addEventListener('click', (event) => {
         let tarElement = event.target;
         if (tarElement.tagName == 'LI' && tarElement.firstChild.id == 'home') {
@@ -197,7 +198,7 @@ function linkNavigation() {
 
 
 
-
+// initial functions that run on load
 querySelectors();
 expandHamburger();
 linkNavigation();

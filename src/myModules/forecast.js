@@ -42,7 +42,6 @@ async function displayForecast() {
     // combine the time with the matching temperature and weather code
     const today = new Date(myWeather[1]['current']['time']);
     
-    // const formattedDate = utcToZonedTime(today, 'America/New_York', 'yyyy-MM-dd HH:mm:ss');
     const todayWeatherArr = myWeather[1]['hourly'];
     let hourlyArr = myWeather[1]['hourly']['time'];
     let finishedHourlyArr = [];
@@ -99,6 +98,8 @@ async function displayForecast() {
         const weatherImg = new Image();
         weatherImg.classList.add('secondWeatherImg');
         let userCode;
+
+        // the background color of the forecast panes will change depending on the weather code that is provided as well as the time of day
 
         if (todayWeatherArr['weather_code'][closestIndexDate] === 0 && todayWeatherArr['is_day'][closestIndexDate] === 1) {
             forecastPane.setAttribute('clearD', '');
@@ -216,7 +217,6 @@ async function displayForecast() {
             forecastPane.setAttribute('overcast', '');
             userCode = 'overcast';
             weatherImg.src = Cloudy;
-            // weatherImg.src = Cloudy;
         } else if (todayWeatherArr['weather_code'][closestIndexDate] === 45 && todayWeatherArr['is_day'][closestIndexDate] === 0) {
             forecastPane.setAttribute('overcast', '');
             userCode = 'foggy';
@@ -318,11 +318,5 @@ async function displayForecast() {
     }        
    return myWeather;
 }
-
-// function set(latitude, longitude) {
-//     localStorage.clear();
-//     localStorage.setItem('latitude', JSON.stringify(latitude));
-//     localStorage.setItem('longitude', JSON.stringify(longitude));
-// }
 
 export { displayForecast, eraseForecastInfo };

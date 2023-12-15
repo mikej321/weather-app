@@ -2,6 +2,7 @@ import { printForecastWeather } from "./dailyForecast";
 import { closestTo, parseISO, closestIndexTo, eachHourOfInterval, addHours, addDays, format, subHours } from "date-fns";
 
 async function displayEtcInfoForecast() {
+    // takes the sunrise and sunset information and displays it in the forecast panels
     let myWeather = await printForecastWeather();
     const conditionContainer = document.querySelectorAll('.conditionContainer');
     

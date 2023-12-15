@@ -4,6 +4,7 @@ import { closestTo, parseISO, closestIndexTo, eachHourOfInterval, addHours, addD
 import Wind from '../assets/Wind.svg';
 
 async function displayCurrentWindInfo() {
+    // displays the wind information taken from the information provided from the user and displays it in the current panel
     let myWeather = await displayForecast();
     const temperatureInfo = document.querySelector('.temperatureInfo');
 

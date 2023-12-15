@@ -26,6 +26,7 @@ import { fetchWeather, eraseAreaContents, eraseTempInfo, fadeOut, fadeIn } from 
 import { format, isMonday, isTuesday, isWednesday, isThursday, isFriday, isSaturday, isSunday } from 'date-fns';
 
 async function printWeather() {
+    // displays the current days weather
     const areaChoice = document.querySelector('.areaChoice');
     const temperatureInfo = document.querySelector('.temperatureInfo');
     const forecast = document.querySelector('.forecast');
@@ -65,6 +66,7 @@ async function printWeather() {
     
     const conditions = document.createElement('p');
     let userCode;
+    // the background color of the current weather's pane will change based on the weather code that is provided
 
     if (myWeather[1].current['weather_code'] === 0 && myWeather[1].current['is_day'] === 1) {
         temperatureInfo.setAttribute('clearD', '');

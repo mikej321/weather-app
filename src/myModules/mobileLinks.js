@@ -1,6 +1,7 @@
 import { linkNavigation } from "..";
 
 function expandHamburger() {
+    // helper function to animate the hamburger menu by toggling classes
     const menu = document.querySelector('.hamburger');
     const links = document.querySelector('.links');
     const line1 = document.querySelector('#line1');

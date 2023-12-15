@@ -81,7 +81,7 @@ async function fetchArea() {
     return areaArr;
 }
 
-/* function that erases the choices on screen every time a new
+/* erases the choices on screen every time a new
 search is performed */
 
 function eraseAreaContents() {
@@ -99,31 +99,8 @@ function eraseTempInfo() {
     tempInfo.removeAttribute('data-weather');
 }
 
-async function fadeOut(ele) {
-    let opacity = 1;
-    let intervalID = setInterval(() => {
-        if (opacity > 0) {
-            opacity = opacity - 0.1;
-            ele.style.opacity = opacity;
-        }  else {
-            clearInterval(intervalID);
-        }
-    })
-}
-
-async function fadeIn(ele) {
-    let opacity = -0.1;
-    let intervalID = setInterval(() => {
-        if (opacity < 1) {
-            opacity = opacity + 0.1;
-            ele.style.opacity = opacity;
-        } else {
-            clearInterval(intervalID);
-        }
-    })
-}
-
 async function pickArea() {
+    // searches the area arr and displays the choices for the user to pick
     const areaChoice = document.querySelector('.areaChoice');
     let areaArr = await fetchArea();
     eraseAreaContents();
@@ -162,6 +139,7 @@ async function pickArea() {
 }
 
 async function pickedChoice() {
+    // takes the choice that the user clicks and sends it to the next function for processing
     const listOfTowns = await pickArea();
     function waitForChoice() {
         let choiceTown;
@@ -188,6 +166,7 @@ async function pickedChoice() {
 }
 
 async function fetchWeather() {
+    // takes the picked choice and processes the information, sending it in a JSON file for further use
     let userChoice = await pickedChoice();
     let myResponse = await fetch(`https://api.open-meteo.com/v1/dwd-icon?latitude=${userChoice.townLat}&longitude=${userChoice.townLon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code,precipitation_probability,is_day,wind_speed_10m,wind_gusts_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch`, {
         mode: 'cors',
@@ -197,6 +176,7 @@ async function fetchWeather() {
 }
 
 function setName(town) {
+    // helper that clears the localStorage every time a user enters a new city
     localStorage.clear();
     localStorage.setItem('town', JSON.stringify(town));
 }
@@ -204,8 +184,6 @@ function setName(town) {
 export { fetchWeather,
          eraseAreaContents,
          eraseTempInfo, 
-         fadeOut, 
-         fadeIn, 
          setName, 
          pickArea,
          pickedChoice,
